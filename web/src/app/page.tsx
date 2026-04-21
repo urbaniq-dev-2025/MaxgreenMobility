@@ -1,0 +1,204 @@
+import Link from "next/link";
+import type { Metadata } from "next";
+import { Container } from "@/components/Container";
+import { Button } from "@/components/Button";
+import { Accordion } from "@/components/Accordion";
+import { MailtoForm } from "@/components/MailtoForm";
+import { getSite } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description: "Sustainable electric vehicles for modern businesses.",
+};
+
+export default function Home() {
+  const site = getSite();
+  const home = site.home;
+  return (
+    <div>
+      <section className="bg-brand py-16 text-white">
+        <Container className="space-y-6">
+          <div className="max-w-2xl space-y-3">
+            <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl">
+              {home.hero.headline}
+            </h1>
+            <p className="text-white/85">{home.hero.subheadline}</p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Button href={home.hero.primaryCta.href} className="bg-white text-foreground hover:bg-white/90">
+              {home.hero.primaryCta.label}
+            </Button>
+            <Button href={home.hero.secondaryCta.href} variant="ghost" className="ring-1 ring-white/25 hover:bg-white/10 text-white">
+              {home.hero.secondaryCta.label}
+            </Button>
+          </div>
+        </Container>
+      </section>
+
+      <section className="py-12">
+        <Container>
+          <div className="text-center">
+            <h2 className="text-2xl font-extrabold tracking-tight">{home.products.title}</h2>
+            <p className="mt-2 text-sm text-muted">{home.products.subtitle}</p>
+          </div>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {home.products.items.map((p) => (
+              <Link
+                key={p.label}
+                href={p.href}
+                className="rounded-[var(--radius-lg)] border border-border bg-surface p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+              >
+                <div className="h-20 rounded-xl bg-brand/15" />
+                <div className="mt-4 text-sm font-bold">{p.label}</div>
+                <div className="mt-1 text-xs text-muted">View product details</div>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="py-10">
+        <Container>
+          <div className="text-center">
+            <h2 className="text-2xl font-extrabold tracking-tight">{home.whyChoose.title}</h2>
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {home.whyChoose.items.map((it) => (
+              <div key={it.title} className="rounded-[var(--radius-lg)] border border-border bg-surface p-6">
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand/15 text-brand">
+                  ✓
+                </div>
+                <div className="mt-4 font-bold">{it.title}</div>
+                <div className="mt-1 text-sm text-muted">{it.subtitle}</div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-surface py-10">
+        <Container>
+          <div className="text-center">
+            <h2 className="text-xl font-extrabold tracking-tight">{home.trustedBy.title}</h2>
+          </div>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            {home.trustedBy.items.map((t: string) => (
+              <div
+                key={t}
+                className="rounded-full bg-white px-4 py-2 text-xs font-semibold text-foreground ring-1 ring-border"
+              >
+                {t}
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="py-10">
+        <Container>
+          <div className="text-center">
+            <h2 className="text-2xl font-extrabold tracking-tight">{home.industries.title}</h2>
+          </div>
+          <div className="mt-7 grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+            {home.industries.items.map((i: string) => (
+              <div key={i} className="rounded-[var(--radius-lg)] border border-border bg-surface p-4 text-center text-sm font-semibold">
+                {i}
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-surface py-10">
+        <Container>
+          <div className="text-center">
+            <h2 className="text-2xl font-extrabold tracking-tight">{home.savings.title}</h2>
+          </div>
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {home.savings.items.map((s) => (
+              <div key={s.title} className="rounded-[var(--radius-lg)] border border-border bg-white p-5">
+                <div className="text-xs font-semibold text-muted">{s.title}</div>
+                <div className="mt-2 text-2xl font-extrabold text-brand">{s.value}</div>
+                <div className="mt-1 text-xs text-muted">{s.note}</div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="py-10">
+        <Container>
+          <div className="text-center">
+            <h2 className="text-2xl font-extrabold tracking-tight">{home.faq.title}</h2>
+          </div>
+          <div className="mx-auto mt-6 max-w-3xl">
+            <Accordion items={home.faq.items} />
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-gradient-to-r from-brand to-accent py-12 text-white">
+        <Container>
+          <div className="text-center">
+            <h2 className="text-2xl font-extrabold tracking-tight">{home.getInTouch.title}</h2>
+            <p className="mt-2 text-sm text-white/85">{home.getInTouch.subtitle}</p>
+          </div>
+
+          <div className="mx-auto mt-8 max-w-4xl rounded-[var(--radius-lg)] bg-white p-6 text-foreground shadow-lg" id="message">
+            <MailtoForm
+              toEmail="info@maxgreenmobility.com"
+              subjectPrefix="Website inquiry"
+              submitLabel="Submit Inquiry"
+              footerHint="We respond to inquiries within 24 hours during business days."
+              fields={[
+                {
+                  kind: "text",
+                  name: "name",
+                  label: "Full Name*",
+                  required: true,
+                  placeholder: "Enter your full name",
+                },
+                {
+                  kind: "text",
+                  name: "company",
+                  label: "Company Name*",
+                  required: true,
+                  placeholder: "Enter your company name",
+                },
+                {
+                  kind: "email",
+                  name: "email",
+                  label: "Email Address*",
+                  required: true,
+                  placeholder: "you@company.com",
+                },
+                {
+                  kind: "text",
+                  name: "phone",
+                  label: "Phone Number*",
+                  required: true,
+                  placeholder: "+91 98765 43210",
+                },
+                {
+                  kind: "select",
+                  name: "product",
+                  label: "Product of Interest",
+                  colSpan: 2,
+                  options: home.products.items.map((p) => ({ label: p.label, value: p.label })),
+                },
+                {
+                  kind: "textarea",
+                  name: "message",
+                  label: "Your Message*",
+                  required: true,
+                  colSpan: 2,
+                  placeholder: "Tell us what you need...",
+                },
+              ]}
+            />
+          </div>
+        </Container>
+      </section>
+    </div>
+  );
+}
