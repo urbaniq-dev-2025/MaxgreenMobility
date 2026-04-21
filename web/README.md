@@ -49,6 +49,30 @@ For product videos in `content/products/*.json`:
 
 Home + Contact forms submit via **mailto** (no backend). Submitting opens the user’s email client with a prefilled message to `info@maxgreenmobility.com`.
 
+## Web UI editing (Admin CMS)
+
+This project includes a simple admin UI at:
+
+- `http://localhost:3000/admin`
+
+It uses **Decap CMS** to edit JSON files in `content/` and upload media to `public/media/`.
+
+### One-time setup (GitHub + Vercel)
+
+1) **Create a GitHub repo** and push this project.
+2) In `public/admin/config.yml`, update:
+   - `repo: YOUR_GITHUB_ORG/YOUR_REPO`
+   - `branch: main` (or your branch)
+   - `base_url: https://YOUR_VERCEL_DOMAIN.vercel.app`
+3) In GitHub, create an **OAuth App**:
+   - **Homepage URL**: your Vercel URL (e.g. `https://your-site.vercel.app`)
+   - **Authorization callback URL**: `https://your-site.vercel.app/api/callback`
+4) In Vercel project settings, add environment variables:
+   - `OAUTH_GITHUB_CLIENT_ID`
+   - `OAUTH_GITHUB_CLIENT_SECRET`
+
+After deploy, visit `https://your-site.vercel.app/admin`, login with GitHub, edit content, and click **Save** to publish.
+
 ## Production build (optional)
 
 ```powershell

@@ -1,0 +1,200 @@
+backend:
+  name: github
+  repo: REPLACE_ME/REPLACE_ME
+  branch: main
+  base_url: https://YOUR_VERCEL_DOMAIN.vercel.app
+  auth_endpoint: api/auth
+
+media_folder: "public/media"
+public_folder: "/media"
+
+publish_mode: simple
+
+collections:
+  - name: "site"
+    label: "Site"
+    files:
+      - label: "Site Content + Theme"
+        name: "site"
+        file: "content/site.json"
+        format: "json"
+        fields:
+          - { label: "Brand Name", name: "brand.name", widget: "string" }
+          - { label: "Logo Text", name: "brand.logoText", widget: "string" }
+          - label: "Theme"
+            name: "theme"
+            widget: "object"
+            fields:
+              - label: "Active Preset"
+                name: "activePreset"
+                widget: "select"
+                options:
+                  - { label: "Green", value: "green" }
+                  - { label: "Blue", value: "blue" }
+                  - { label: "Teal", value: "teal" }
+                  - { label: "Purple", value: "purple" }
+              - label: "Presets"
+                name: "presets"
+                widget: "object"
+                fields:
+                  - label: "Green"
+                    name: "green"
+                    widget: "object"
+                    fields:
+                      - { label: "Label", name: "label", widget: "string" }
+                      - label: "Tokens"
+                        name: "tokens"
+                        widget: "object"
+                        fields:
+                          - { label: "Brand", name: "brand", widget: "color" }
+                          - { label: "Brand 2", name: "brand2", widget: "color" }
+                          - { label: "Accent", name: "accent", widget: "color" }
+                          - { label: "Background", name: "background", widget: "color" }
+                          - { label: "Surface", name: "surface", widget: "color" }
+                          - { label: "Foreground", name: "foreground", widget: "color" }
+                          - { label: "Muted", name: "muted", widget: "color" }
+                          - { label: "Border", name: "border", widget: "string" }
+                  - label: "Blue"
+                    name: "blue"
+                    widget: "object"
+                    fields:
+                      - { label: "Label", name: "label", widget: "string" }
+                      - label: "Tokens"
+                        name: "tokens"
+                        widget: "object"
+                        fields:
+                          - { label: "Brand", name: "brand", widget: "color" }
+                          - { label: "Brand 2", name: "brand2", widget: "color" }
+                          - { label: "Accent", name: "accent", widget: "color" }
+                          - { label: "Background", name: "background", widget: "color" }
+                          - { label: "Surface", name: "surface", widget: "color" }
+                          - { label: "Foreground", name: "foreground", widget: "color" }
+                          - { label: "Muted", name: "muted", widget: "color" }
+                          - { label: "Border", name: "border", widget: "string" }
+                  - label: "Teal"
+                    name: "teal"
+                    widget: "object"
+                    fields:
+                      - { label: "Label", name: "label", widget: "string" }
+                      - label: "Tokens"
+                        name: "tokens"
+                        widget: "object"
+                        fields:
+                          - { label: "Brand", name: "brand", widget: "color" }
+                          - { label: "Brand 2", name: "brand2", widget: "color" }
+                          - { label: "Accent", name: "accent", widget: "color" }
+                          - { label: "Background", name: "background", widget: "color" }
+                          - { label: "Surface", name: "surface", widget: "color" }
+                          - { label: "Foreground", name: "foreground", widget: "color" }
+                          - { label: "Muted", name: "muted", widget: "color" }
+                          - { label: "Border", name: "border", widget: "string" }
+                  - label: "Purple"
+                    name: "purple"
+                    widget: "object"
+                    fields:
+                      - { label: "Label", name: "label", widget: "string" }
+                      - label: "Tokens"
+                        name: "tokens"
+                        widget: "object"
+                        fields:
+                          - { label: "Brand", name: "brand", widget: "color" }
+                          - { label: "Brand 2", name: "brand2", widget: "color" }
+                          - { label: "Accent", name: "accent", widget: "color" }
+                          - { label: "Background", name: "background", widget: "color" }
+                          - { label: "Surface", name: "surface", widget: "color" }
+                          - { label: "Foreground", name: "foreground", widget: "color" }
+                          - { label: "Muted", name: "muted", widget: "color" }
+                          - { label: "Border", name: "border", widget: "string" }
+
+          - label: "Home"
+            name: "home"
+            widget: "object"
+            fields:
+              - label: "Hero"
+                name: "hero"
+                widget: "object"
+                fields:
+                  - { label: "Headline", name: "headline", widget: "string" }
+                  - { label: "Subheadline", name: "subheadline", widget: "text" }
+              - label: "FAQs"
+                name: "faq"
+                widget: "object"
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - label: "Items"
+                    name: "items"
+                    widget: "list"
+                    fields:
+                      - { label: "Question", name: "q", widget: "string" }
+                      - { label: "Answer", name: "a", widget: "text" }
+
+          - label: "About"
+            name: "about"
+            widget: "object"
+            fields:
+              - label: "Hero"
+                name: "hero"
+                widget: "object"
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Subtitle", name: "subtitle", widget: "string" }
+              - label: "Leadership"
+                name: "leadership"
+                widget: "object"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Message (paragraphs)", name: "message", widget: "list" }
+                  - { label: "Image", name: "image", widget: "image" }
+
+          - label: "Contact"
+            name: "contact"
+            widget: "object"
+            fields:
+              - label: "Hero"
+                name: "hero"
+                widget: "object"
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Subtitle", name: "subtitle", widget: "string" }
+
+  - name: "products"
+    label: "Products (Solutions)"
+    folder: "content/products"
+    create: true
+    format: "json"
+    extension: "json"
+    slug: "{{slug}}"
+    fields:
+      - { label: "ID", name: "id", widget: "string" }
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Tagline", name: "tagline", widget: "string" }
+      - label: "Media"
+        name: "media"
+        widget: "object"
+        fields:
+          - { label: "Main Image", name: "mainImage", widget: "image" }
+          - label: "Demo Video"
+            name: "demoVideo"
+            widget: "object"
+            fields:
+              - { label: "Kind", name: "kind", widget: "select", options: ["youtube", "file"] }
+              - { label: "URL", name: "url", widget: "string" }
+      - label: "Technical Specs"
+        name: "specs"
+        widget: "list"
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "Value", name: "value", widget: "string" }
+      - label: "Key Features"
+        name: "features"
+        widget: "list"
+      - label: "CTA"
+        name: "cta"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "text" }
+          - { label: "Primary Button", name: "primary", widget: "string" }
+          - { label: "Secondary Button", name: "secondary", widget: "string" }
+
