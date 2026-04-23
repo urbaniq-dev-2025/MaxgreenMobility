@@ -1,0 +1,18 @@
+{
+  "id": "8",
+  "name": "type",
+  "tagline": "type",
+  "media": {
+    "demoVideo": {
+      "kind": "youtube",
+      "url": "egege"
+    },
+    "mainImage": "/media/leadership.svg"
+  },
+  "cta": {
+    "title": "test",
+    "subtitle": "test",
+    "primary": "test ",
+    "secondary": "test"
+  }
+}

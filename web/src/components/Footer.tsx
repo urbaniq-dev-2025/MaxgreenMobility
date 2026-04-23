@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
-import { getSite } from "@/lib/site";
+import type { SiteConfig } from "@/lib/site";
 
-export function Footer() {
-  const site = getSite();
+export function Footer({ site }: { site: Pick<SiteConfig, "brand" | "footer"> }) {
   return (
     <footer className="mt-16 border-t border-border bg-[#0b1220] text-white">
       <Container className="grid gap-10 py-12 md:grid-cols-4">

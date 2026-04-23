@@ -55,23 +55,17 @@ This project includes a simple admin UI at:
 
 - `http://localhost:3000/admin`
 
-It uses **Decap CMS** to edit JSON files in `content/` and upload media to `public/media/`.
+### Custom Admin (same UI, editable)
 
-### One-time setup (GitHub + Vercel)
+- Go to `http://localhost:3000/admin`
+- Login with the hardcoded demo credentials:
+  - Username: `admin`
+  - Password: `maxgreen123`
+- You’ll be redirected to `http://localhost:3000/admin/edit`
 
-1) **Create a GitHub repo** and push this project.
-2) In `public/admin/config.yml`, update:
-   - `repo: YOUR_GITHUB_ORG/YOUR_REPO`
-   - `branch: main` (or your branch)
-   - `base_url: https://YOUR_VERCEL_DOMAIN.vercel.app`
-3) In GitHub, create an **OAuth App**:
-   - **Homepage URL**: your Vercel URL (e.g. `https://your-site.vercel.app`)
-   - **Authorization callback URL**: `https://your-site.vercel.app/api/callback`
-4) In Vercel project settings, add environment variables:
-   - `OAUTH_GITHUB_CLIENT_ID`
-   - `OAUTH_GITHUB_CLIENT_SECRET`
-
-After deploy, visit `https://your-site.vercel.app/admin`, login with GitHub, edit content, and click **Save** to publish.
+**Save behavior**:
+- In local development, Save updates `content/site.json` on disk.
+- On Vercel, filesystem writes are not guaranteed to persist. When you’re ready to deploy, we’ll switch Save to a proper persistence method (GitHub commit or database).
 
 ## Production build (optional)
 

@@ -1,13 +1,7 @@
 import type { IncomingMessage, ServerResponse } from "http";
 import { AuthorizationCode } from "simple-oauth2";
 
-type Provider = "github";
-
-function getProvider(_p?: string | null): Provider {
-  return "github";
-}
-
-function config(_provider: Provider) {
+function config() {
   const id = process.env.OAUTH_GITHUB_CLIENT_ID;
   const secret = process.env.OAUTH_GITHUB_CLIENT_SECRET;
 
@@ -25,18 +19,18 @@ function config(_provider: Provider) {
   };
 }
 
-export default async (req: IncomingMessage, res: ServerResponse) => {
+const handler = async (req: IncomingMessage, res: ServerResponse) => {
   const host = req.headers.host ?? "";
   const url = new URL(`https://${host}${req.url ?? "/api/callback"}`);
   const urlParams = url.searchParams;
 
   const code = urlParams.get("code");
-  const provider = getProvider(urlParams.get("provider"));
+  const provider = (urlParams.get("provider") ?? "github") === "github" ? "github" : "github";
 
   try {
     if (!code) throw new Error("Missing OAuth code");
 
-    const client = new AuthorizationCode(config(provider));
+    const client = new AuthorizationCode(config());
     const tokenParams = {
       code,
       redirect_uri: `https://${host}/api/callback?provider=${provider}`,
@@ -81,4 +75,6 @@ function renderBody(
   </body>
 </html>`;
 }
+
+export default handler;
 

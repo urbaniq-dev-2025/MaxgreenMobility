@@ -2,17 +2,11 @@ import type { IncomingMessage, ServerResponse } from "http";
 import { AuthorizationCode } from "simple-oauth2";
 import { randomBytes } from "crypto";
 
-type Provider = "github";
-
 function randomString() {
   return randomBytes(12).toString("hex");
 }
 
-function getProvider(p?: string | null): Provider {
-  return "github";
-}
-
-function config(_provider: Provider) {
+function config() {
   const id = process.env.OAUTH_GITHUB_CLIENT_ID;
   const secret = process.env.OAUTH_GITHUB_CLIENT_SECRET;
 
@@ -30,13 +24,13 @@ function config(_provider: Provider) {
   };
 }
 
-export default async (req: IncomingMessage, res: ServerResponse) => {
+const handler = async (req: IncomingMessage, res: ServerResponse) => {
   try {
     const host = req.headers.host ?? "";
     const url = new URL(`https://${host}${req.url ?? "/api/auth"}`);
-    const provider = getProvider(url.searchParams.get("provider"));
+    const provider = (url.searchParams.get("provider") ?? "github") === "github" ? "github" : "github";
 
-    const client = new AuthorizationCode(config(provider));
+    const client = new AuthorizationCode(config());
 
     const authorizationUri = client.authorizeURL({
       redirect_uri: `https://${host}/api/callback?provider=${provider}`,
@@ -51,4 +45,6 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     res.end(String(e));
   }
 };
+
+export default handler;
 

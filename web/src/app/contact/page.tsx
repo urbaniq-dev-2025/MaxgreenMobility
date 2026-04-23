@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { MailtoForm } from "@/components/MailtoForm";
-import { getSite } from "@/lib/site";
+import { getSiteRuntime } from "@/lib/runtimeContent";
 
 export const metadata: Metadata = {
   title: "Contact Us",
   description: "Contact Maxgreen Mobility for demos, quotes, and partnerships.",
 };
 
-export default function ContactPage() {
-  const site = getSite();
+export default async function ContactPage() {
+  const site = await getSiteRuntime();
   const contact = site.contact;
 
   return (

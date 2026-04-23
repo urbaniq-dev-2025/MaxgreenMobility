@@ -3,15 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Container } from "@/components/Container";
-import { getSite } from "@/lib/site";
+import type { SiteConfig } from "@/lib/site";
 
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
   return pathname.startsWith(href);
 }
 
-export function Header() {
-  const site = getSite();
+export function Header({ site }: { site: Pick<SiteConfig, "brand" | "nav" | "topRight"> }) {
   const pathname = usePathname();
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-white/90 backdrop-blur">

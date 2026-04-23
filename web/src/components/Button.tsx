@@ -23,7 +23,7 @@ export function Button({
     variant === "primary"
       ? "bg-brand text-white hover:bg-brand/90"
       : variant === "secondary"
-        ? "bg-white text-foreground ring-1 ring-border hover:bg-surface/60"
+        ? "bg-white/80 text-foreground ring-1 ring-border hover:bg-white/90"
         : "bg-transparent text-foreground hover:bg-surface/60";
 
   const cls = `${base} ${styles} ${className}`;

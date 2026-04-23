@@ -1,15 +1,15 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { Container } from "@/components/Container";
-import { getSite } from "@/lib/site";
+import { getSiteRuntime } from "@/lib/runtimeContent";
 
 export const metadata: Metadata = {
   title: "About Us",
   description: "Learn about Maxgreen Mobility’s mission, vision, and values.",
 };
 
-export default function AboutPage() {
-  const site = getSite();
+export default async function AboutPage() {
+  const site = await getSiteRuntime();
   const about = site.about;
 
   return (

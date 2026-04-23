@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
-import { getProducts, getProductById, type Product } from "@/lib/site";
+import type { Product } from "@/lib/site";
 
 function toneClasses(tone: Product["kpis"][number]["tone"]) {
   switch (tone) {
@@ -20,16 +20,12 @@ function toneClasses(tone: Product["kpis"][number]["tone"]) {
   }
 }
 
-export function SolutionsClient() {
-  const products = getProducts();
+export function SolutionsClient({ products }: { products: Product[] }) {
   const searchParams = useSearchParams();
   const initialId = searchParams.get("product") ?? products[0]?.id ?? "electric-cart";
 
   const [selectedId, setSelectedId] = useState<string>(initialId);
-  const product = useMemo(
-    () => getProductById(selectedId) ?? products[0],
-    [selectedId, products]
-  );
+  const product = useMemo(() => products.find((p) => p.id === selectedId) ?? products[0], [selectedId, products]);
   const [activeViewId, setActiveViewId] = useState<string>(product.media.views[0]?.id ?? "");
 
   const activeView = product.media.views.find((v) => v.id === activeViewId) ?? product.media.views[0];
@@ -55,7 +51,7 @@ export function SolutionsClient() {
               onChange={(e) => {
                 const next = e.target.value;
                 setSelectedId(next);
-                const p = getProductById(next) ?? products[0];
+                const p = products.find((x) => x.id === next) ?? products[0];
                 setActiveViewId(p.media.views[0]?.id ?? "");
               }}
             >
@@ -75,7 +71,13 @@ export function SolutionsClient() {
           <div className="mt-8 grid gap-5 lg:grid-cols-2">
             <div className="rounded-[var(--radius-lg)] border border-border bg-[#eafff3] p-8">
               <div className="relative mx-auto h-40 w-40">
-                <Image src={activeView.image} alt={`${product.name} image`} fill />
+                <Image
+                  src={activeView.image}
+                  alt={`${product.name} image`}
+                  fill
+                  priority
+                  sizes="160px"
+                />
               </div>
               <div className="mt-4 text-center text-xs font-semibold text-muted">Product Image</div>
             </div>
@@ -109,7 +111,7 @@ export function SolutionsClient() {
                 <button
                   key={v.id}
                   type="button"
-                  className={`rounded-[var(--radius-lg)] border bg-white p-3 text-center transition ${
+                  className={`rounded-[var(--radius-lg)] border bg-white/80 p-3 text-center transition ${
                     active ? "border-brand ring-2 ring-brand/20" : "border-border hover:border-foreground/20"
                   }`}
                   onClick={() => setActiveViewId(v.id)}
@@ -171,7 +173,7 @@ export function SolutionsClient() {
             <div className="text-2xl font-extrabold">{product.cta.title}</div>
             <p className="mx-auto mt-2 max-w-3xl text-sm text-white/85">{product.cta.subtitle}</p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <Button href="/contact#message" className="bg-white text-foreground hover:bg-white/90">
+              <Button href="/contact#message" className="bg-white/80 text-foreground hover:bg-white/90">
                 {product.cta.primary}
               </Button>
               <Button

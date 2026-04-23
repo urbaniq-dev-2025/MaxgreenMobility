@@ -1,9 +1,11 @@
+local_backend: true
+
 backend:
+  # Local backend demo mode: no auth, edits real files locally via `npm run cms`.
+  # We'll switch back to GitHub auth/publish later.
   name: github
-  repo: REPLACE_ME/REPLACE_ME
+  repo: local/local
   branch: main
-  base_url: https://YOUR_VERCEL_DOMAIN.vercel.app
-  auth_endpoint: api/auth
 
 media_folder: "public/media"
 public_folder: "/media"

@@ -4,15 +4,15 @@ import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { Accordion } from "@/components/Accordion";
 import { MailtoForm } from "@/components/MailtoForm";
-import { getSite } from "@/lib/site";
+import { getSiteRuntime } from "@/lib/runtimeContent";
 
 export const metadata: Metadata = {
   title: "Home",
   description: "Sustainable electric vehicles for modern businesses.",
 };
 
-export default function Home() {
-  const site = getSite();
+export default async function Home() {
+  const site = await getSiteRuntime();
   const home = site.home;
   return (
     <div>
@@ -22,13 +22,17 @@ export default function Home() {
             <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl">
               {home.hero.headline}
             </h1>
-            <p className="text-white/85">{home.hero.subheadline}</p>
+            <p className="text-white/95">{home.hero.subheadline}</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Button href={home.hero.primaryCta.href} className="bg-white text-foreground hover:bg-white/90">
+            <Button href={home.hero.primaryCta.href} className="bg-white/80 text-foreground hover:bg-white/90">
               {home.hero.primaryCta.label}
             </Button>
-            <Button href={home.hero.secondaryCta.href} variant="ghost" className="ring-1 ring-white/25 hover:bg-white/10 text-white">
+            <Button
+              href={home.hero.secondaryCta.href}
+              variant="ghost"
+              className="ring-1 ring-white/45 hover:bg-white/15 text-white"
+            >
               {home.hero.secondaryCta.label}
             </Button>
           </div>

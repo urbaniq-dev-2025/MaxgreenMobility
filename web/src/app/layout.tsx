@@ -3,7 +3,7 @@ import "./globals.css";
 
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { getSite } from "@/lib/site";
+import { getSiteRuntime } from "@/lib/runtimeContent";
 
 export const metadata: Metadata = {
   title: {
@@ -13,12 +13,12 @@ export const metadata: Metadata = {
   description: "Green mobility solutions for businesses.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const site = getSite();
+  const site = await getSiteRuntime();
   const preset = site.theme.presets[site.theme.activePreset];
   return (
     <html
@@ -39,9 +39,9 @@ export default function RootLayout({
       }
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <Header />
+        <Header site={site} />
         <main className="flex-1">{children}</main>
-        <Footer />
+        <Footer site={site} />
       </body>
     </html>
   );
