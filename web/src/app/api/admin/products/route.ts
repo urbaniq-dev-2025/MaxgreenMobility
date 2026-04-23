@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { isAdminAuthed } from "@/lib/adminAuth";
 import path from "path";
 import { readdir, readFile, writeFile } from "fs/promises";
+import { commitTextFile, githubEnabled, toRepoContentPath } from "@/lib/githubContent";
 
 function productsDir() {
   return path.join(process.cwd(), "content", "products");
@@ -34,8 +35,20 @@ export async function POST(req: Request) {
     return new NextResponse("Invalid filename", { status: 400 });
   }
 
+  const text = JSON.stringify(body?.json ?? {}, null, 2) + "\n";
+
+  if (githubEnabled()) {
+    const repoPath = toRepoContentPath(`content/products/${filename}`);
+    const result = await commitTextFile({
+      repoPath,
+      text,
+      message: `Admin: update product ${filename} (${new Date().toISOString()})`,
+    });
+    return NextResponse.json({ ok: true, persisted: "github", ...result });
+  }
+
   const filePath = path.join(productsDir(), filename);
-  await writeFile(filePath, JSON.stringify(body?.json ?? {}, null, 2) + "\n", "utf8");
-  return NextResponse.json({ ok: true });
+  await writeFile(filePath, text, "utf8");
+  return NextResponse.json({ ok: true, persisted: "fs" });
 }
 

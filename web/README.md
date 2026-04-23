@@ -65,7 +65,23 @@ This project includes a simple admin UI at:
 
 **Save behavior**:
 - In local development, Save updates `content/site.json` on disk.
-- On Vercel, filesystem writes are not guaranteed to persist. When you’re ready to deploy, we’ll switch Save to a proper persistence method (GitHub commit or database).
+- On Vercel, filesystem writes are not guaranteed to persist. For production, configure **GitHub commit persistence** (recommended) or a database.
+
+### Production persistence via GitHub commits (recommended for Vercel)
+
+The admin UI can persist changes by committing JSON updates back to GitHub. This triggers a Vercel redeploy so edits appear on the live site.
+
+Set these environment variables in Vercel (Project → Settings → Environment Variables):
+
+- `GITHUB_TOKEN`: a fine-grained personal access token with **Contents: Read and write** on the repo
+- `GITHUB_REPO`: `"owner/repo"` (example: `"UrbanIQ/Maxgreen-mobility"`)
+- `GITHUB_BRANCH` (optional): defaults to `"main"`
+- `GITHUB_CONTENT_ROOT` (optional): defaults to `"web"` (repo subfolder that contains `content/`)
+
+Optional (recommended):
+
+- `ADMIN_USER`: defaults to `"admin"`
+- `ADMIN_PASS`: defaults to `"maxgreen123"`
 
 ## Production build (optional)
 
