@@ -44,7 +44,7 @@ export async function POST(req: Request) {
       text,
       message: `Admin: update product ${filename} (${new Date().toISOString()})`,
     });
-    return NextResponse.json({ ok: true, persisted: "github", ...result });
+    return NextResponse.json({ persisted: "github", ...result });
   }
 
   const filePath = path.join(productsDir(), filename);

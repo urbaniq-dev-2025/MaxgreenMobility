@@ -32,7 +32,7 @@ export async function POST(req: Request) {
         text,
         message: `Admin: update site config (${new Date().toISOString()})`,
       });
-      return NextResponse.json({ ok: true, persisted: "github", ...result });
+      return NextResponse.json({ persisted: "github", ...result });
     }
 
     // Local-dev persistence: write back into the repo file.

@@ -296,24 +296,8 @@
       "subtitle": "Explore our range of electric vehicles designed for your business needs.",
       "items": [
         {
-          "label": "Electric Rickshaw",
-          "href": "/solutions?product=electric-rickshaw"
-        },
-        {
-          "label": "Electric Cart",
-          "href": "/solutions?product=electric-cart"
-        },
-        {
-          "label": "Electric Scooter",
-          "href": "/solutions?product=electric-scooter"
-        },
-        {
           "label": "E-Loader",
           "href": "/solutions?product=e-loader"
-        },
-        {
-          "label": "electric test",
-          "href": "/solutions"
         }
       ]
     },
