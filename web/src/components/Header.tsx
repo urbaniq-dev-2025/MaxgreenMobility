@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Container } from "@/components/Container";
 import type { SiteConfig } from "@/lib/site";
@@ -17,8 +18,15 @@ export function Header({ site }: { site: Pick<SiteConfig, "brand" | "nav" | "top
       <Container className="flex h-16 items-center justify-between gap-6">
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-2 font-extrabold tracking-tight">
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand text-white">
-              M
+            <span className="relative inline-flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg bg-white ring-1 ring-border">
+              <Image
+                src="/media/maxgreenLogo.png"
+                alt={`${site.brand.name} logo`}
+                fill
+                sizes="32px"
+                className="object-contain"
+                priority
+              />
             </span>
             <span className="text-sm">{site.brand.logoText}</span>
           </Link>
